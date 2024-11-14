@@ -20,5 +20,6 @@ namespace DigitalLib.Models
 
         public int ClienteId { get; set; }
         public Cliente? Cliente { get; set; }
+        //Teste push
     }
 }
