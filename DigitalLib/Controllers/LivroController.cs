@@ -9,9 +9,9 @@ namespace DigitalLib.Controllers
 {
     public class LivroController : Controller
     {
-        private readonly DigitalLibContext _context;
+        private readonly BibliotecaDigitalContext _context;
 
-        public LivroController(DigitalLibContext context)
+        public LivroController(BibliotecaDigitalContext context)
         {
             _context = context;
         }
@@ -63,7 +63,7 @@ namespace DigitalLib.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id", "Titulo", "DataPublicacao", "Preco", "AUtorId")] Livro livro)
+        public IActionResult Edit(int id, [Bind("Id", "Titulo", "DataPublicacao", "Preco", "AutorId")] Livro livro)
         {
             if (id != livro.Id)
             {
@@ -104,7 +104,7 @@ namespace DigitalLib.Controllers
             }
 
             var livro = _context.Livro
-                .Include(l => l.Autor) // Inclua o autor relacionado para garantir que os dados do autor sejam carregados
+                .Include(l => l.Autor) 
                 .FirstOrDefault(e => e.Id == id);
 
             if (livro == null)
@@ -136,7 +136,7 @@ namespace DigitalLib.Controllers
                 return NotFound();
             }
 
-            var livro = _context.Livro.Include(l => l.Autor).FirstOrDefault(i => i.Id == id);
+            var livro = _context.Livro.Include(o => o.Autor).Include(l => l.Alugueis).ThenInclude(a => a.Cliente).FirstOrDefault(i => i.Id == id);
 
             if (livro == null)
             {

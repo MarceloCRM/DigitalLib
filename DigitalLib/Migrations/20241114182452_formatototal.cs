@@ -5,7 +5,7 @@
 namespace DigitalLib.Migrations
 {
     /// <inheritdoc />
-    public partial class initial7 : Migration
+    public partial class formatototal : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,43 +1,81 @@
 ﻿@model DigitalLib.Models.Livro
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>Livro</h4>
+    <h4>Informações abaixo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
+            Título do livro
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Titulo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataPublicacao)
+            Data de publicação
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataPublicacao)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Preco)
+            Preço
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Preco)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Autor)
+            Nome do autor
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Autor.Nome)
         </dd>
     </dl>
 </div>
+<h4>Alugueis relacionados</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome do cliente</th>
+            <th>Data de Empréstimo</th>
+            <th>Data de Devolução</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Alugueis.Count > 0)
+        {
+            @foreach (var aluguel in Model.Alugueis)
+            {
+                <tr>
+                    <td>@aluguel.Cliente.Nome</td>
+                    <td>@aluguel.DataEmprestimo.ToShortDateString()</td>
+                    <td>
+                        @if (aluguel.DataDevolucao.HasValue)
+                        {
+                            @aluguel.DataDevolucao.Value.ToShortDateString()
+                        }
+                        else
+                        {
+                            <span>Não devolvido</span>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+           <tr>
+                <td>Ainda não possui alugueis.</td>
+           </tr>
+        }
+    </tbody>
+</table>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a> |
+    <a asp-action="Index">Voltar para a lista</a>
 </div>

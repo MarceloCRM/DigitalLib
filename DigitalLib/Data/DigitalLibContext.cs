@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 namespace DigitalLib.Data
 {
-    public class DigitalLibContext : DbContext
+    public class BibliotecaDigitalContext : DbContext
     {
-        public DigitalLibContext(DbContextOptions<DigitalLibContext> options) : base(options) { }
+        public BibliotecaDigitalContext(DbContextOptions<BibliotecaDigitalContext> options) : base(options) { }
         public DbSet<Livro> Livro { get; set; }
         public DbSet<Autor> Autor { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Aluguel> Aluguel { get; set; }
     }
 }

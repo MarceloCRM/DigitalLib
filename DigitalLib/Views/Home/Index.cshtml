@@ -1,8 +1,67 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Bem-vindo à Biblioteca Digital";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"]</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/DigitalLib.styles.css" asp-append-version="true" />
+    </head>
+    <body>
+        <div class="container my-5">
+            <h1 class="display-4 text-center">Bem-vindo à Biblioteca Digital!</h1>
+            <p class="lead text-center">Explore, gerencie e descubra nosso acervo de maneira simples e prática.</p>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+            <div class="row mt-4">
+                <!-- Seção Autores -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Autores</h5>
+                            <p class="card-text">Explore e gerencie informações sobre os autores do nosso acervo.</p>
+                            <a class="btn btn-primary" asp-controller="Autor" asp-action="Index">Ver Autores</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção Livros -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Livros</h5>
+                            <p class="card-text">Conheça o nosso acervo e gerencie detalhes de cada obra.</p>
+                            <a class="btn btn-primary" asp-controller="Livro" asp-action="Index">Ver Livros</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção Clientes -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Clientes</h5>
+                            <p class="card-text">Gerencie o cadastro de clientes e acompanhe seu histórico de leitura.</p>
+                            <a class="btn btn-primary" asp-controller="Cliente" asp-action="Index">Ver Clientes</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção Aluguéis -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Aluguel de Livros</h5>
+                            <p class="card-text">Controle o empréstimo e devolução de livros de forma eficiente.</p>
+                            <a class="btn btn-primary" asp-controller="Aluguel" asp-action="Index">Ver Aluguéis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

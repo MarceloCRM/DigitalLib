@@ -1,24 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DigitalLib.Models;
-using DigitalLib.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using DigitalLib.Data;
+using DigitalLib.Models;
 
 namespace DigitalLib.Controllers
 {
-    public class AutorController : Controller
+    public class ClienteController : Controller
     {
         private readonly BibliotecaDigitalContext _context;
 
-        public AutorController(BibliotecaDigitalContext context)
+        public ClienteController(BibliotecaDigitalContext context)
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
-            var autor = _context.Autor.ToList();
-            return View(autor);
+            var cliente = _context.Cliente.ToList();
+            return View(cliente);
         }
 
         public IActionResult Create()
@@ -28,19 +32,18 @@ namespace DigitalLib.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Nome, DataNascimento, Genero")] Autor autor)
+        public IActionResult Create([Bind("Nome", "DataNascimento", "Genero")] Cliente cliente)
         {
             if (!ModelState.IsValid)
             {
                 ViewData["Generos"] = new List<string> { "Masculino", "Feminino", "Prefiro não dizer" };
-                return View(autor);
+                return View(cliente);
             }
-            if (autor == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
-            _context.Add(autor);
+            _context.Add(cliente);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -52,20 +55,19 @@ namespace DigitalLib.Controllers
                 return NotFound();
             }
 
-            var autor = _context.Autor.Find(id);
-            if (autor == null)
+            var cliente = _context.Cliente.Find(id);
+            if (cliente == null)
             {
                 return NotFound();
             }
             ViewData["Generos"] = new List<string> { "Masculino", "Feminino", "Prefiro não dizer" };
-            return View(autor);
+            return View(cliente);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id", "Nome", "DataNascimento", "Genero")] Autor autor)
+        public IActionResult Edit(int? id, [Bind("Id", "Nome", "DataNascimento", "Genero")] Cliente cliente)
         {
-            if (id != autor.Id)
+            if (id != cliente.Id)
             {
                 return NotFound();
             }
@@ -73,17 +75,17 @@ namespace DigitalLib.Controllers
             if (!ModelState.IsValid)
             {
                 ViewData["Generos"] = new List<string> { "Masculino", "Feminino", "Prefiro não dizer" };
-                return View(autor);
+                return View(cliente);
             }
 
             try
             {
-                _context.Update(autor);
+                _context.Update(cliente);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_context.Autor.Any(e => e.Id == autor.Id))
+                if (!_context.Cliente.Any(e => e.Id == cliente.Id))
                 {
                     return NotFound();
                 }
@@ -92,7 +94,6 @@ namespace DigitalLib.Controllers
                     throw;
                 }
             }
-
             return RedirectToAction("Index");
         }
 
@@ -103,23 +104,22 @@ namespace DigitalLib.Controllers
                 return NotFound();
             }
 
-            var autor = _context.Autor.FirstOrDefault(e => e.Id == id);
-            if (autor == null)
+            var cliente = _context.Cliente.FirstOrDefault(e => e.Id == id);
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return View(autor);
+            return View(cliente);
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int? id)
         {
-            var autor = _context.Autor.FirstOrDefault(e => e.Id == id);
-            if (autor != null)
+            var cliente = _context.Cliente.FirstOrDefault(e => e.Id == id);
+            if (cliente != null)
             {
-                _context.Remove(autor);
+                _context.Remove(cliente);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -133,14 +133,15 @@ namespace DigitalLib.Controllers
                 return NotFound();
             }
 
-            var autor = _context.Autor.Include(c => c.Livros).FirstOrDefault(m => m.Id == id);
+            var cliente = _context.Cliente.Include(c => c.Alugueis).ThenInclude(a => a.Livro).FirstOrDefault(m => m.Id == id);
 
-            if (autor == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return View(autor);
+            return View(cliente);
         }
+
     }
 }

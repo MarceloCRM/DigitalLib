@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var connectionString = builder.Configuration.GetConnectionString("DigitalLibConnection");
-builder.Services.AddDbContext<DigitalLibContext>(options => options.UseSqlServer(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("BibliotecaDigitalConnection");
+builder.Services.AddDbContext<BibliotecaDigitalContext>(options => options.UseSqlServer(connectionString));
 
 
 var app = builder.Build();

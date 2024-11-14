@@ -1,14 +1,14 @@
-﻿@model IEnumerable<DigitalLib.Models.Autor>
+﻿@model IEnumerable<DigitalLib.Models.Cliente>
 
 @{
-    ViewData["Title"] = "Autores";
+    ViewData["Title"] = "Cliente";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Lista de autores</h1>
+<h1>Lista de clientes</h1>
 
 <p>
-    <a asp-action="Create">Criar novo</a>
+    <a asp-action="Create">Novo cliente</a>
 </p>
 <table class="table">
     <thead>
@@ -16,12 +16,12 @@
             <th>
                 Nome completo
             </th>
-            <td>
+            <th>
                 Data de nascimento
-            </td>
-            <td>
+            </th>
+            <th>
                 Gênero
-            </td>
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,10 +32,10 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.DataNascimento)
+                @Html.DisplayFor(modelItem => item.DataNascimento)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Genero)
+                @Html.DisplayFor(modelItem => item.Genero)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
